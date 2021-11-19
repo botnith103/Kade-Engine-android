@@ -294,7 +294,6 @@ class ModchartState
 
 	function makeAnimatedLuaSprite(spritePath:String, names:Array<String>, prefixes:Array<String>, startAnim:String, id:String)
 	{
-		#if FEATURE_FILESYSTEM
 		// TODO: Make this use OpenFlAssets.
 		var data:BitmapData = BitmapData.fromFile(Sys.getCwd() + "assets/data/songs/" + PlayState.SONG.songId + '/' + spritePath + ".png");
 
@@ -318,12 +317,10 @@ class ModchartState
 
 		sprite.animation.play(startAnim);
 		return id;
-		#end
 	}
 
 	function makeLuaSprite(spritePath:String, toBeCalled:String, drawBehind:Bool)
 	{
-		#if FEATURE_FILESYSTEM
 		// pre lowercasing the song name (makeLuaSprite)
 		var songLowercase = StringTools.replace(PlayState.SONG.songId, " ", "-").toLowerCase();
 		switch (songLowercase)
@@ -381,7 +378,6 @@ class ModchartState
 				PlayState.instance.addObject(PlayState.dad);
 			}
 		}
-		#end
 
 		new LuaSprite(sprite, toBeCalled).Register(lua);
 
