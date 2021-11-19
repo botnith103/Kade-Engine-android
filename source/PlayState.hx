@@ -381,8 +381,6 @@ class PlayState extends MusicBeatState
 			PlayStateChangeables.Optimize = false;
 		#end
 
-		Debug.logInfo('Searching for mod chart? ($executeModchart) at ${Paths.lua('songs/${PlayState.SONG.songId}/modchart')}');
-
 		if (executeModchart)
 			songMultiplier = 1;
 
