@@ -594,7 +594,7 @@ class FreeplayState extends MusicBeatState
 		diffCalcText.text = 'RATING: ${DiffCalc.CalculateDiff(songData.get(songs[curSelected].songName)[curDifficulty])}';
 		diffText.text = CoolUtil.difficultyFromInt(curDifficulty).toUpperCase();
 
-		#if PRELOAD_ALL
+		#if (PRELOAD_ALL && !mobile)
 		if (songs[curSelected].songCharacter == "sm")
 		{
 			var data = songs[curSelected];
