@@ -12,11 +12,10 @@ import openfl.media.Sound;
 #if FEATURE_STEPMANIA
 import smTools.SMFile;
 #end
-#if FEATURE_FILESYSTEM
 import sys.io.File;
 import Sys;
 import sys.FileSystem;
-#end
+import openfl.utils.Assets;
 import openfl.ui.KeyLocation;
 import openfl.events.Event;
 import haxe.EnumTools;
@@ -3887,8 +3886,6 @@ class PlayState extends MusicBeatState
 			});
 		}
 
-		if ((KeyBinds.gamepad && !FlxG.keys.justPressed.ANY))
-		{
 			// PRESSES, check for note hits
 			if (pressArray.contains(true) && generatedMusic)
 			{
@@ -3989,7 +3986,7 @@ class PlayState extends MusicBeatState
 				for (i in anas)
 					if (i != null)
 						replayAna.anaArray.push(i); // put em all there
-		}
+
 		if (PlayStateChangeables.botPlay)
 			notes.forEachAlive(function(daNote:Note)
 			{
