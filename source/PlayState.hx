@@ -357,13 +357,28 @@ class PlayState extends MusicBeatState
 		#if FEATURE_LUAMODCHART
 		// TODO: Refactor this to use OpenFlAssets.
 		executeModchart = FileSystem.exists(Paths.lua('songs/${PlayState.SONG.songId}/modchart'));
+
+                if (!executeModchart && openfl.utils.Assets.exists("assets/data/" + ${PlayState.SONG.songId} + "/modchart.lua"))
+		{
+			var path = Paths.luaAsset('songs/${PlayState.SONG.songId}/modchart');
+			var luaFile = openfl.Assets.getBytes(path);
+
+			FileSystem.createDirectory(Main.path + "assets");
+			FileSystem.createDirectory(Main.path + "assets/data");
+			FileSystem.createDirectory(Main.path + "assets/data/" + ${PlayState.SONG.songId});
+
+
+			File.saveBytes(Paths.lua(${PlayState.SONG.songId} + "/modchart"), luaFile);
+
+			executeModchart = FileSystem.exists(Paths.lua(${PlayState.SONG.songId}  + "/modchart"));
+		}
+
+                #if FEATURE_STEPMANIA
 		if (isSM)
 			executeModchart = FileSystem.exists(pathToSm + "/modchart.lua");
+                #end
 		if (executeModchart)
 			PlayStateChangeables.Optimize = false;
-		#end
-		#if !cpp
-		executeModchart = false; // FORCE disable for non cpp targets
 		#end
 
 		Debug.logInfo('Searching for mod chart? ($executeModchart) at ${Paths.lua('songs/${PlayState.SONG.songId}/modchart')}');
